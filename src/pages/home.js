@@ -15,19 +15,35 @@ function Home() {
   const { getAllProducts} = useProduct();
 
   const [products,setProducts] = useState()
+  const [categoryProducts,setCategoryProducts] = useState([])
 
   useEffect(()=>{
     getData()
  },[])
 
- 
+  // useEffect(()=> {
+  //   console.log(categoryProducts);
+  // })
+  
 
   const getData = async () =>{
    const data = await getAllProducts()
    setProducts(data)
+   setCategoryProducts(0)
+   console.log('hasssaaann',data)
   }
   console.log('home',products)
- 
+
+  const deneme = async (c) =>{
+    // const sessionData = await sessionStorage.getItem('allProducts')
+    // setCategoryProducts(JSON.stringify(sessionData))
+    // console.log('category',sessionData)
+    // categoryProducts && categoryProducts.map(item=>console.log(item))
+    console.log('gelen',c)
+    const productsOfCategory= await products && products.filter(product=> product.category?.name === c)
+    setCategoryProducts(productsOfCategory)
+  }
+  console.log('yunus',categoryProducts)
   return (
     <Layout>
       <div className='container'>
@@ -42,26 +58,33 @@ function Home() {
             <div className='imgContainer'>
               <HomeImg />
               <div className='categoryContainer'>
-                <div onClick={getData}>Hepsi</div>
-                <div>Pantolon</div>
-                <div>Gömlek</div>
-                <div>Tişört</div>
-                <div>Pantolon</div>
-                <div>Şort</div>
-                <div>Sweatshirt</div>
-                <div>Kazak</div>
-                <div>Polar</div>
-                <div>Mont</div>
-                <div>Abiye</div>
-                <div>Ayakkabı</div>
-                <div>Aksesuar</div>
-                <div>Çanta</div>
-                <div>Diğer</div>
+                <div className='category'  onClick={getData}>Hepsi</div>
+                <div className='category' onClick={()=>deneme('Pantolon')}  >Pantolon</div>
+                <div className='category' >Gömlek</div>
+                <div className='category' onClick={()=>deneme('Tişört')}>Tişört</div>
+                <div className='category' >Pantolon</div>
+                <div className='category' >Şort</div>
+                <div className='category' >Sweatshirt</div>
+                <div className='category' >Kazak</div>
+                <div className='category' >Polar</div>
+                <div className='category' >Mont</div>
+                <div className='category' >Abiye</div>
+                <div className='category' >Ayakkabı</div>
+                <div className='category' >Aksesuar</div>
+                <div className='category' >Çanta</div>
+                <div className='category' >Diğer</div>
               </div>
             </div>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={2}
+             
+            >
               {
+                categoryProducts.length >0  ?
+                categoryProducts && categoryProducts.map((item,index)=>
+                <ProductCard item={item} key={index} />
+                )
+                :
                 products && products.map((item,index)=>
                 <ProductCard item={item} key={index} />
                 )

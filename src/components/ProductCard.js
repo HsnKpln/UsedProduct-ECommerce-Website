@@ -3,13 +3,25 @@ import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
+import { useNavigate } from 'react-router-dom'
+import { useProduct } from '../contexts/ProductContext'
 
 function ProductCard(item) {
+  const {getProducts} = useProduct()
+  const navigate = useNavigate()
+
+  const detailPage = (id) =>{
+    console.log('clicked')
+    navigate(`/detail/${id}`)
+    getProducts(id)
+  }
   return (
     <Grid item
     sx={{
-      width: '20%'
+      width: '20%',
+      cursor: 'pointer'
     }}
+    onClick={()=>detailPage(item.item.id)}
   >
     <Paper elevation={3} style={{ height: '36.3vh' , marginBottom: '30px' }} >
       <Box
@@ -19,9 +31,11 @@ function ProductCard(item) {
         }}
       >
         <img 
-          src={`https://bootcamp.akbolat.net${item.item.image.formats.thumbnail.url}`}
+          src={item.item.image !=null ? `https://bootcamp.akbolat.net${item.item.image.formats.thumbnail.url}` 
+          : 'https://www.klasiksanatlar.com/img/sayfalar/b/1_1598452306_resim.png'}
           alt=''
         />
+        
       </Box>
       <Box
         sx={{

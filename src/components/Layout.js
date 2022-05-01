@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import '../styles/layout.css'
 import LogoApp from './LogoApp'
@@ -9,6 +9,12 @@ import {useUser} from '../contexts/UserContext'
 
 function Layout({children}) {
   const {loginSuccess,registerSuccess,loginJwtSuccess,registerJwtSuccess} = useUser()
+  const [jwtControl,setJwtControl] = useState()
+  
+  useEffect(()=>{
+    const dataJwt = JSON.parse(localStorage.getItem('userJwt'))
+    setJwtControl(dataJwt)
+  },[])
 
   return (
     <>
@@ -26,7 +32,7 @@ function Layout({children}) {
                   <PlusIcon/>
                   ürün ekle</button>
                   {
-                    loginSuccess || registerSuccess || loginJwtSuccess || registerJwtSuccess ?
+                   jwtControl ?
                     <button onClick={()=>console.log(loginSuccess,registerSuccess,loginJwtSuccess, registerJwtSuccess)}>
                   <AccountIcon/>
                   Hesabım
