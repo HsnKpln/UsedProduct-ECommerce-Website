@@ -27,8 +27,6 @@ function Login() {
       e.preventDefault();
       const email = e.target[0].value
       const password = e.target[1].value
-      console.log(email)
-      console.log(password)
 
       try {
         await axios
@@ -41,6 +39,11 @@ function Login() {
            console.log('User Profile',response.data.jwt)
 
            localStorage.setItem('userJwt',JSON.stringify(response.data.jwt))
+           localStorage.setItem('userProfile',JSON.stringify(response.data.user))
+           
+           const jwt = JSON.parse(localStorage.getItem('userJwt'));
+           axios.defaults.headers.common = { 'Authorization': `Bearer ${jwt}` }
+           
            setLoginSuccess(true)
            console.log('login',loginSuccess)
          })
@@ -111,7 +114,7 @@ function Login() {
               }
             </Formik>
             <div className='commonClass'>
-               <p className='accountQuestion'>Hesabın yok mu? <Link to='/register'>Üye Ol</Link> </p>
+               <p className='accountQuestion'>Hesabın yok mu? <Link to='/'>Üye Ol</Link> </p>
             </div>
           </div>
         </div>

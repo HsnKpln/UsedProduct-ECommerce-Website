@@ -1,53 +1,257 @@
+import { Container, Paper } from '@mui/material'
+import { Box, height, padding } from '@mui/system'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import CustomizedDialogs from '../components/Dialog'
+import Layout from '../components/Layout'
 import { useProduct } from '../contexts/ProductContext'
+import '../styles/detailPage.css'
+import { Formik } from 'formik'
+import { OfferModalSchema } from '../constants/yup/yupSchema'
+import axios, { URL } from '../constants/api/axios'
 
 function DetailsPage() {
-    const {singleProduct,getProducts} = useProduct()
-    const {id} = useParams()
-    
-    useEffect(()=>{
-      getProducts(id)
-    },[])
-    // const [products,setProducts] = useState()
-    // const [detailProduct,setDetailProduct] = useState()
+  const { singleProduct,setSingleProduct, getProducts } = useProduct()
+  const { id } = useParams()
 
-    // useEffect(()=>{
-    //     getData()
-    //   },[])
+  const [controlIsSold, setControlIsSold] = useState(false)
+
+ 
+  const UrunID = id
+  useEffect(() => {
+    getProducts(UrunID)
     
-      
+  }, [])
+
+  
+  
+  console.log('contexten gelen', singleProduct)
+  
+  // useEffect(()=>{
+  //   setControlIsSold(true)
+  // },[controlIsSold])
 
 
-    //   const getData = async () =>{
-    //     const data = await getAllProducts()
-    //     //console.log('accountPage',data)
-    //     setProducts(data)
-    //     //const selectedProduct= await products && products.filter(product=> product.id == id)
-    //     //setDetailProduct(selectedProduct)
-    //    }
-       
-    //    console.log('newProduct',products)
-      //console.log('selectedProduct',detailProduct)
-      console.log('contexten gelen',singleProduct)
-    
-  return (
-    <>
-    <div>DetailPage</div>
-    <h1>{id}</h1>
-    {/* {
-        products && products.filter(product=> product.id == id).map(product => 
-        <span>{product.brand}</span>)
-    } */}
-    {
-        singleProduct && singleProduct.map(prd => <>
-         <h1>{prd.brand}</h1>
-         <div>{prd.id}</div>
-         <div>{prd.name}</div>
-        </> )
+  const offerSubmit = async (e) => {
+    //e.preventDefault();
+    const offer = e;
+    console.log('async denemesi', offer)
+    // console.log('eymen2',singleProduct[0].category)
+    const user = JSON.parse(localStorage.getItem('userProfile'))
+
+    console.log('user', singleProduct[0].id.toString())
+
+
+
+
+    //   axios.get(URL.offers)
+    // .then(function (response) {
+    //   console.log('get isteginde jwt attı',response)
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   console.log(error);
+    // })
+    // .then(function () {
+    //   // always executed
+    // });
+
+    try {
+      await axios
+        .post(URL.offers, {
+          product: singleProduct[0].id.toString(),
+          users_permissions_user: user.id.toString(),
+          offerPrice: Number(offer),
+          isStatus: true,
+          published_at: singleProduct[0].published_at,
+          created_by: user.id.toString(),
+          updated_by: ""
+
+        })
+        .then((response) => {
+          console.log('well done')
+          console.log('User Profile', response)
+        })
+        .catch((error) => {
+          console.log('An error occured', error.response)
+          //console.log('error message ', error.response.data.message[0].messages[0].message)
+        });
+    } catch (err) {
+      console.log('An err', err.response)
     }
-    
-    </>
+  }
+
+  const pay = async (x) => {
+    await axios.put(URL.products + '/' + x.id, {
+      name:x.name,
+      isOfferable: false,
+      isSold: true
+    }).then((response) => {
+      console.log('odeme basarılı',response)
+      
+      const eskiArray = [...singleProduct]
+      eskiArray[0].isSold = true;
+      setSingleProduct(eskiArray)
+      
+      
+    })
+      .catch((error) => {
+        console.log('An error occured', error.response)
+        //console.log('error message ', error.response.data.message[0].messages[0].message)
+    });
+  }
+
+  return (
+    <Layout>
+      <Container maxWidth="lg"
+        sx={{
+          marginTop: 2.5,
+          display: 'flex',
+          height: '71.2vh',
+        }}
+      >
+        {
+          singleProduct && singleProduct.map((prd, index) =>
+            < React.Fragment key={index} >
+              <Box
+                sx={{
+                  width: '50%',
+                  height: '71.2vh',
+                  backgroundColor: '#fff',
+                  borderTopLeftRadius: '8px',
+                  borderBottomLeftRadius: '8px'
+                }}
+              >
+                <img
+                  src={prd.image != null ? `https://bootcamp.akbolat.net${prd.image.formats.thumbnail.url}`
+                    : 'https://www.klasiksanatlar.com/img/sayfalar/b/1_1598452306_resim.png'}
+                  alt=''
+                  className='detailImg'
+                />
+
+              </Box>
+              <Box
+                sx={{
+                  width: '50%',
+                  height: '71.2',
+                  backgroundColor: '#fff',
+                  padding: '2%',
+                  borderTopRightRadius: '8px',
+                  borderBottomRightRadius: '8px'
+                }}
+              >
+                <div className='productName'>{prd.name}</div>
+                <div className='commonContainer'>
+                  <div className='commonTitle'>Marka:</div>
+                  <div className='commonDescription'>{prd.brand}</div>
+                </div>
+                <div className='commonContainer'>
+                  <div className='commonTitle'>Renk:</div>
+                  <div className='commonDescription'>{prd.color}</div>
+                </div>
+                <div className='commonContainer'>
+                  <div className='commonTitle'>Kullanım Durumu:</div>
+                  <div className='commonDescription'>{prd.status}</div>
+                </div>
+                <div className='price'>{prd.price}  TL</div>
+                {
+                  prd.isSold  ?
+                    <button>Satışta değil</button>
+                    :
+                    <div className='modalContainer'>
+                      <CustomizedDialogs buttonName={"Satın Al"} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'}>
+                        <button onClick={()=>pay(prd)}>satın al</button>
+                      </CustomizedDialogs>
+                      <CustomizedDialogs buttonName={"Teklif ver"} buttonColor={'#fff'} buttonBg={'#4B9CE2'}>
+                        <Formik
+                          // initialValues={{
+                          //   offer: "",
+                          // }}
+                          // onSubmit = {(values,actions)={
+                          //   if(values){
+                          //     try{
+                          //        axios
+                          //         .post(URL.offers, {
+                          //           product: singleProduct[0].id,
+                          //           users_permissions_user: user.id,
+                          //           offerPrice: offer,
+                          //           isStatus: null,
+                          //           published_at: Date.now(),
+                          //           created_by: Date.now(),
+                          //           updated_by: Date.now()
+                          //         })
+                          //         .then((response) => {
+                          //           console.log('well done')
+                          //           console.log('User Profile', response)
+                          //         })
+                          //         .catch((error) => {
+                          //           console.log('An error occured', error.response)
+                          //           //console.log('error message ', error.response.data.message[0].messages[0].message)
+                          //         });
+                          //     } catch (err) {
+                          //       console.log('An err', err.response)
+                          //     }
+                          //   }
+
+                          // }}
+                          // validationSchema={OfferModalSchema}
+
+                          initialValues={{ offer: '' }}
+                          onSubmit={(values, actions) => {
+                            console.log('sumbit edildi', values)
+                            offerSubmit(values.offer)
+                          }}
+                          validationSchema={OfferModalSchema}
+                        >
+                          {
+                            ({ values, handleChange, handleBlur, errors, handleSubmit, touched, resetForm }) =>
+                              <form onSubmit={handleSubmit}>
+                                <div className='inputBlock'>
+                                  <div className='inputContainer'>
+                                    <input type="radio" name='offer'
+                                      value={prd.price * 0.30} onChange={handleChange} onBlur={handleBlur}
+                                    />
+                                  </div>
+                                  <div className='labelContainer'>
+                                    <label>%30 Teklif ver</label>
+                                  </div>
+                                </div>
+                                <div className='inputBlock'>
+                                  <input type="radio" name='offer'
+                                    value={prd.price * 0.40} onChange={handleChange} onBlur={handleBlur}
+                                  />
+                                  <label>%40 Teklif ver</label>
+                                </div><div className='inputBlock'>
+                                  <input type="radio" name='offer'
+                                    value={prd.price * 0.50} onChange={handleChange} onBlur={handleBlur}
+                                  />
+                                  <label>%50 Teklif ver</label>
+                                </div><div className='inputBlock'>
+                                  <label>Teklif Girin</label>
+                                  <input type="text" name='offer' placeholder='Teklif giriniz'
+                                    value={values.offer} onChange={handleChange} onBlur={handleBlur}
+                                  />
+                                </div>
+                                {errors.offer && touched.offer && <span>{errors.offer}</span>}
+                                <div>
+                                  <button type='submit' >Submit</button>
+                                </div>
+                                <code>{JSON.stringify(values)}</code>
+                              </form>
+                          }
+                        </Formik>
+                      </CustomizedDialogs>
+                    </div>
+                }
+                <div className='description'>Açıklama</div>
+                <div className='productDescription'>{prd.description} </div>
+              </Box>
+            </React.Fragment>
+          )
+        }
+      </Container>
+
+    </Layout>
   )
 }
 

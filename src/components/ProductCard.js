@@ -34,6 +34,7 @@ function ProductCard(item) {
           src={item.item.image !=null ? `https://bootcamp.akbolat.net${item.item.image.formats.thumbnail.url}` 
           : 'https://www.klasiksanatlar.com/img/sayfalar/b/1_1598452306_resim.png'}
           alt=''
+          className='img'
         />
         
       </Box>

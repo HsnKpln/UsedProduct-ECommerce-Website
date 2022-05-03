@@ -22,6 +22,14 @@ function Register() {
         }
   },[registerSuccess,registerJwtSuccess])
 
+  //const jwt = JSON.parse(localStorage.getItem('userJwt'));
+  // if(Object.keys(jwt).length >0){
+  //   console.log(" jwt var ")
+  // }else{
+  //   console.log("jwt yok")
+  // }
+  
+
   
  
    const handleSubmit = async(e) =>{
@@ -45,6 +53,10 @@ function Register() {
            
            //sessionStorage.setItem(currentPage,JSON.stringify([...data.data.results]))
            localStorage.setItem('userJwt',JSON.stringify(response.data.jwt))
+           localStorage.setItem('userProfile',JSON.stringify(response.data.user))
+           const jwt = JSON.parse(localStorage.getItem('userJwt'));
+           axios.defaults.headers.common = { 'Authorization': `Bearer ${jwt}` }
+
            setRegisterSuccess(true)
          })
          .catch((error)=>{

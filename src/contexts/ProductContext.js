@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useState } from "react";
 import axios, { URL } from "../constants/api/axios";
 
 const ProductContext = React.createContext();
@@ -39,6 +39,7 @@ const ProductProvider = ({ children }) => {
       // }
       const productDetail = JSON.parse(sessionStorage.getItem('allProducts'))
       //console.log('deneme yeri',productDetail)
+      
       setSingleProduct(productDetail.filter(item => item.id == productId))
       
       console.log('ynusssss',singleProduct)
@@ -53,7 +54,8 @@ const ProductProvider = ({ children }) => {
       value={{
         getAllProducts,
         getProducts,
-        singleProduct
+        singleProduct,
+        setSingleProduct
       }}
     >
       {children}

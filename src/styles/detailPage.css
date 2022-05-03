@@ -1,0 +1,60 @@
+.detailImg{
+    width: 96%;
+    height: 96%;
+    padding: 2%;
+    border-radius: 18px;
+}
+.commonContainer{
+    display: flex;
+}
+.productName{
+    font: normal normal normal 34px/23px Nunito;
+    color: #555555;
+    opacity: 1;
+    margin-bottom: 2.3vh;
+}
+.commonContainer{
+    margin-bottom: 1.85vh;
+}
+.commonTitle{
+    width: 30%;
+    font: normal normal bold 15px/20px Nunito;
+    color: #525252;
+    opacity: 1;
+}
+.commonDescription{
+    font: normal normal normal 15px/20px Nunito;
+    color: #525252;
+    opacity: 1;
+}
+.price{
+    font: normal normal bold 25px/23px Nunito;
+    color: #525252;
+    opacity: 1;
+    margin-top: 1vh;
+}
+.modalContainer{
+    margin: 2.77vh 0px;
+    display: flex;
+}
+.description{
+    font: normal normal bold 18px/24px Nunito;
+    color: #525252;
+    opacity: 1;
+}
+.productDescription{
+    font: normal normal normal 15px/23px Nunito;
+    color: #555555;
+    opacity: 1;
+}
+.inputBlock{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.inputContainer{
+    width: 50%;
+}
+.labelContainer{
+    width: 50%;
+}
