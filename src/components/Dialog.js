@@ -46,7 +46,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-export default function CustomizedDialogs({children,buttonName,buttonColor,buttonBg}) {
+export default function CustomizedDialogs({children,buttonName,buttonColor,buttonBg,title}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -82,7 +82,7 @@ export default function CustomizedDialogs({children,buttonName,buttonColor,butto
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
+          {title}
         </BootstrapDialogTitle>
         <DialogContent dividers>
           {children}

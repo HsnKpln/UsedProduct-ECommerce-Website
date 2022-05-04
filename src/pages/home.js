@@ -58,20 +58,19 @@ function Home() {
             <div className='imgContainer'>
               <HomeImg />
               <div className='categoryContainer'>
-                <div className='category'  onClick={getData}>Hepsi</div>
+                <div className='category'  onClick={()=>getData()}>Hepsi</div>
                 <div className='category' onClick={()=>deneme('Pantolon')}  >Pantolon</div>
-                <div className='category' >Gömlek</div>
+                <div className='category' onClick={()=>deneme('Gömlek')}>Gömlek</div>
                 <div className='category' onClick={()=>deneme('Tişört')}>Tişört</div>
-                <div className='category' >Pantolon</div>
-                <div className='category' >Şort</div>
-                <div className='category' >Sweatshirt</div>
-                <div className='category' >Kazak</div>
-                <div className='category' >Polar</div>
-                <div className='category' >Mont</div>
-                <div className='category' >Abiye</div>
-                <div className='category' >Ayakkabı</div>
-                <div className='category' >Aksesuar</div>
-                <div className='category' >Çanta</div>
+                <div className='category' onClick={()=>deneme('Şort')}>Şort</div>
+                <div className='category' onClick={()=>deneme('Sweatshirt')}>Sweatshirt</div>
+                <div className='category' onClick={()=>deneme('Kazak')}>Kazak</div>
+                <div className='category' onClick={()=>deneme('Polar')}>Polar</div>
+                <div className='category' onClick={()=>deneme('Mont')}>Mont</div>
+                <div className='category' onClick={()=>deneme('Abiye')}>Abiye</div>
+                <div className='category' onClick={()=>deneme('Ayakkabı')}>Ayakkabı</div>
+                <div className='category' onClick={()=>deneme('Aksesuar')}>Aksesuar</div>
+                <div className='category' onClick={()=>deneme('Çanta')}>Çanta</div>
                 <div className='category' >Diğer</div>
               </div>
             </div>

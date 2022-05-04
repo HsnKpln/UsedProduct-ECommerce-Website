@@ -1,4 +1,4 @@
-import { Container, Paper } from '@mui/material'
+import { Button, Container, DialogActions, Paper } from '@mui/material'
 import { Box, height, padding } from '@mui/system'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -14,48 +14,30 @@ function DetailsPage() {
   const { singleProduct,setSingleProduct, getProducts } = useProduct()
   const { id } = useParams()
 
-  const [controlIsSold, setControlIsSold] = useState(false)
+  const [givenOffer, setGivenOffer] = useState()
 
+  const user = JSON.parse(localStorage.getItem('userProfile'))
+  
  
   const UrunID = id
   useEffect(() => {
     getProducts(UrunID)
-    
   }, [])
-
+  const myOffer = singleProduct[0].offers.filter(item=>item.users_permissions_user == user.id)
+  //console.log('önceki',myOffer[0].offerPrice)
   
-  
-  console.log('contexten gelen', singleProduct)
+  //console.log('contexten gelen', singleProduct)
   
   // useEffect(()=>{
   //   setControlIsSold(true)
   // },[controlIsSold])
-
+  
 
   const offerSubmit = async (e) => {
     //e.preventDefault();
     const offer = e;
-    console.log('async denemesi', offer)
-    // console.log('eymen2',singleProduct[0].category)
-    const user = JSON.parse(localStorage.getItem('userProfile'))
-
-    console.log('user', singleProduct[0].id.toString())
-
-
-
-
-    //   axios.get(URL.offers)
-    // .then(function (response) {
-    //   console.log('get isteginde jwt attı',response)
-    // })
-    // .catch(function (error) {
-    //   // handle error
-    //   console.log(error);
-    // })
-    // .then(function () {
-    //   // always executed
-    // });
-
+    
+    
     try {
       await axios
         .post(URL.offers, {
@@ -71,6 +53,8 @@ function DetailsPage() {
         .then((response) => {
           console.log('well done')
           console.log('User Profile', response)
+          setGivenOffer(offer)
+          
         })
         .catch((error) => {
           console.log('An error occured', error.response)
@@ -79,6 +63,21 @@ function DetailsPage() {
     } catch (err) {
       console.log('An err', err.response)
     }
+    //   axios.get(URL.offers)
+    // .then(function (response) {
+    //   console.log('get isteginde jwt attı',response)
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   console.log(error);
+    // })
+    // .then(function () {
+    //   // always executed
+    // });
+    //console.log('async denemesi', offer)
+    //console.log('user', singleProduct[0].id.toString())
+    console.log('eymen2',singleProduct[0].offers)
+    
   }
 
   const pay = async (x) => {
@@ -155,14 +154,32 @@ function DetailsPage() {
                 </div>
                 <div className='price'>{prd.price}  TL</div>
                 {
+                  myOffer && myOffer.length >0 ?
+                  
+                   ( givenOffer ? <div className='givenOfferContainer'>
+                      <p className='givenOfferTitle'>verilen teklif: 
+                    <p className='givenOfferPrice'>{givenOffer} TL</p>
+                    </p>
+                    </div>
+                     : 
+                     <div className='givenOfferContainer'>
+                      <div className='givenOfferTitle'>verilen teklif:</div> 
+                    <div className='givenOfferPrice'> {myOffer && myOffer[0].offerPrice} TL</div>
+                    </div>)
+                  : ""
+                }
+                {
                   prd.isSold  ?
-                    <button>Satışta değil</button>
+                    <div className='notOnSale'>Bu ürün Satışta Değil</div>
                     :
                     <div className='modalContainer'>
-                      <CustomizedDialogs buttonName={"Satın Al"} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'}>
+                      <CustomizedDialogs buttonName={"Satın Al"} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Satın Al'}>
                         <button onClick={()=>pay(prd)}>satın al</button>
+                        <Button>Vazgeç</Button>
                       </CustomizedDialogs>
-                      <CustomizedDialogs buttonName={"Teklif ver"} buttonColor={'#fff'} buttonBg={'#4B9CE2'}>
+                      {
+                        givenOffer || (myOffer && myOffer.length >0) ? <CustomizedDialogs buttonName={"Teklifi geri çek"} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Teklif Ver'}></CustomizedDialogs> :
+                        <CustomizedDialogs buttonName={"Teklif ver"} buttonColor={'#fff'} buttonBg={'#4B9CE2'}>
                         <Formik
                           // initialValues={{
                           //   offer: "",
@@ -241,6 +258,7 @@ function DetailsPage() {
                           }
                         </Formik>
                       </CustomizedDialogs>
+                      }
                     </div>
                 }
                 <div className='description'>Açıklama</div>
