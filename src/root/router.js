@@ -1,10 +1,11 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Layout from '../components/Layout'
 import AccountPage from '../pages/accountPage'
+import AddProductPage from '../pages/addProductPage'
 import DetailsPage from '../pages/detailsPage'
 import Home from '../pages/home'
 import Login from '../pages/login'
+import MyAccountPage from '../pages/myAccountPage'
 import Register from '../pages/register'
 
 function Router() {
@@ -17,6 +18,8 @@ function Router() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/account/' element={<AccountPage/>}/>
           <Route path='/detail/:id' element={<DetailsPage/>}/>
+          <Route path='/addproduct' element={<AddProductPage/>}/>
+          <Route path='/myaccount' element={<MyAccountPage/>}/>
       </Routes>
   )
 }

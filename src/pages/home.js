@@ -20,10 +20,6 @@ function Home() {
   useEffect(()=>{
     getData()
  },[])
-
-  // useEffect(()=> {
-  //   console.log(categoryProducts);
-  // })
   
 
   const getData = async () =>{
@@ -34,7 +30,7 @@ function Home() {
   }
   console.log('home',products)
 
-  const deneme = async (c) =>{
+  const category = async (c) =>{
     // const sessionData = await sessionStorage.getItem('allProducts')
     // setCategoryProducts(JSON.stringify(sessionData))
     // console.log('category',sessionData)
@@ -59,18 +55,18 @@ function Home() {
               <HomeImg />
               <div className='categoryContainer'>
                 <div className='category'  onClick={()=>getData()}>Hepsi</div>
-                <div className='category' onClick={()=>deneme('Pantolon')}  >Pantolon</div>
-                <div className='category' onClick={()=>deneme('Gömlek')}>Gömlek</div>
-                <div className='category' onClick={()=>deneme('Tişört')}>Tişört</div>
-                <div className='category' onClick={()=>deneme('Şort')}>Şort</div>
-                <div className='category' onClick={()=>deneme('Sweatshirt')}>Sweatshirt</div>
-                <div className='category' onClick={()=>deneme('Kazak')}>Kazak</div>
-                <div className='category' onClick={()=>deneme('Polar')}>Polar</div>
-                <div className='category' onClick={()=>deneme('Mont')}>Mont</div>
-                <div className='category' onClick={()=>deneme('Abiye')}>Abiye</div>
-                <div className='category' onClick={()=>deneme('Ayakkabı')}>Ayakkabı</div>
-                <div className='category' onClick={()=>deneme('Aksesuar')}>Aksesuar</div>
-                <div className='category' onClick={()=>deneme('Çanta')}>Çanta</div>
+                <div className='category' onClick={()=>category('Pantolon')}  >Pantolon</div>
+                <div className='category' onClick={()=>category('Gömlek')}>Gömlek</div>
+                <div className='category' onClick={()=>category('Tişört')}>Tişört</div>
+                <div className='category' onClick={()=>category('Şort')}>Şort</div>
+                <div className='category' onClick={()=>category('Sweatshirt')}>Sweatshirt</div>
+                <div className='category' onClick={()=>category('Kazak')}>Kazak</div>
+                <div className='category' onClick={()=>category('Polar')}>Polar</div>
+                <div className='category' onClick={()=>category('Mont')}>Mont</div>
+                <div className='category' onClick={()=>category('Abiye')}>Abiye</div>
+                <div className='category' onClick={()=>category('Ayakkabı')}>Ayakkabı</div>
+                <div className='category' onClick={()=>category('Aksesuar')}>Aksesuar</div>
+                <div className='category' onClick={()=>category('Çanta')}>Çanta</div>
                 <div className='category' >Diğer</div>
               </div>
             </div>
@@ -79,7 +75,7 @@ function Home() {
              
             >
               {
-                categoryProducts.length >0  ?
+                categoryProducts.length >= 0  ?
                 categoryProducts && categoryProducts.map((item,index)=>
                 <ProductCard item={item} key={index} />
                 )

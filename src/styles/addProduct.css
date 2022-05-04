@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.leftContainer{
+    width: 49%;
+    background-color: yellow;
+
+}
+.rightContainer{
+    width: 49%;
+    background-color: blue;
+    
+}

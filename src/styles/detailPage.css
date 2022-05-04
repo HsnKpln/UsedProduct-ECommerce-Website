@@ -50,7 +50,10 @@
 .inputBlock{
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 480px;
+    font: normal normal normal 15px/20px Nunito;
+    color: #525252;
+    opacity: 1;
 }
 .inputContainer{
     width: 50%;
@@ -86,4 +89,68 @@
     text-align: center;
     padding: 10px 0px;
     margin: 30px 0px;
+}
+.offerInput{
+    padding: 8px;
+    border: none;
+    background-color: #f4f4f4;
+}
+.sumInfoContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #F0F8FF 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    margin-bottom: 20px;
+}
+.sumInfo{
+    display: flex;
+}
+.sumInfoImg{
+    width: 50px;
+    height: 50px; 
+    border-radius: 8px;
+    margin: 5px;
+}
+.sumInfoName{
+    width: 134px;
+    font: normal normal normal 13px/16px Nunito;
+    color: #555555;
+    opacity: 1;
+    margin-top: 5px;
+}
+.sumInfoPrice{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: normal normal bold 18px/32px Nunito;
+    color: #525252;
+    opacity: 1;
+    margin-right: 5px;
+}
+.offerSubmitBtnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 30px;
+}
+.offerSubmitBtn{
+    background: #4B9CE2 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    text-align: center;
+    font: normal normal bold 18px/24px Nunito;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    width: 70%;
+}
+.summitBuyText{
+    width: 100%;
+    text-align: center;
+    font: normal normal normal 15px/23px Nunito;
+    color: #555555;
+    opacity: 1;
+    margin-bottom: 20px;
 }

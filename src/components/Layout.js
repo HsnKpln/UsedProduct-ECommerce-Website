@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import '../styles/layout.css'
 import LogoApp from './LogoApp'
 import Container from '@mui/material/Container'
@@ -10,6 +10,7 @@ import {useUser} from '../contexts/UserContext'
 function Layout({children}) {
   const {loginSuccess,registerSuccess,loginJwtSuccess,registerJwtSuccess} = useUser()
   const [jwtControl,setJwtControl] = useState()
+  const navigate = useNavigate()
   
   useEffect(()=>{
     const dataJwt = JSON.parse(localStorage.getItem('userJwt'))
@@ -28,17 +29,17 @@ function Layout({children}) {
             <Link to='/login'>Login</Link>
              </div> */}
              <div className='btnGroup'>
-                <button>
+                <button onClick={()=> navigate('/addproduct')}>
                   <PlusIcon/>
                   ürün ekle</button>
                   {
                    jwtControl ?
-                    <button onClick={()=>console.log(loginSuccess,registerSuccess,loginJwtSuccess, registerJwtSuccess)}>
+                    <button onClick={()=>navigate('/myaccount')}>
                   <AccountIcon/>
                   Hesabım
                   </button>
                   :
-                  <button onClick={()=>console.log(loginSuccess,registerSuccess,loginJwtSuccess, registerJwtSuccess)}>
+                  <button onClick={()=> navigate('/login')}>
                   <AccountIcon/>
                   Giriş Yap</button>
                   }
