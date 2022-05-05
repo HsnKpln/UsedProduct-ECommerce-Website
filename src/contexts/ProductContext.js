@@ -7,20 +7,48 @@ const ProductProvider = ({ children }) => {
   const [singleProduct,setSingleProduct] = useState()
 
   const getAllProducts = async () => {
-      //  const sessionData =  sessionStorage.getItem('allProducts')
-      // if(sessionData != null){
-      //   console.log('xxxxxxxxxxxxxxxxxxx')
-      //   return sessionData
-      // }
-      // else{
-   
-      // }
 
     try {
       const res = await axios.get(URL.products)
       if (res.statusText === 'OK') {
         sessionStorage.setItem('allProducts', JSON.stringify(res.data))
         console.log('istek atıldı',res.data)
+        return res.data
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAllCategories = async () => {
+
+    try {
+      const res = await axios.get(URL.categories)
+      if (res.statusText === 'OK') {
+       // console.log('category istegi atıldı',res.data)
+        return res.data
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAllBrands = async () => {
+
+    try {
+      const res = await axios.get(URL.brands)
+      if (res.statusText === 'OK') {
+       //console.log('brands istegi atıldı',res.data)
+        return res.data
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAllColors = async () => {
+
+    try {
+      const res = await axios.get(URL.colors)
+      if (res.statusText === 'OK') {
+       console.log('color istegi atıldı',res.data)
         return res.data
       }
     } catch (error) {
@@ -55,7 +83,10 @@ const ProductProvider = ({ children }) => {
         getAllProducts,
         getProducts,
         singleProduct,
-        setSingleProduct
+        setSingleProduct,
+        getAllCategories,
+        getAllBrands,
+        getAllColors
       }}
     >
       {children}

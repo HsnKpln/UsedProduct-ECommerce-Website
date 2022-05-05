@@ -1,14 +1,97 @@
 import { Container } from '@mui/material'
 import { Formik } from 'formik'
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import Layout from '../components/Layout'
+import axios from '../constants/api/axios'
 import { OfferModalSchema } from '../constants/yup/yupSchema'
+import { useProduct } from '../contexts/ProductContext'
 import '../styles/addProduct.css'
+import Switch from '@mui/material/Switch'
 
 function AddProductPage() {
+    const {getAllCategories,getAllBrands,getAllColors} = useProduct()
 
-    const addProduct = (data) => {
-        console.log(data)
+    const [categories,setCategories] = useState()
+    const [brands,setBrands] = useState()
+    const [colors,setColors] = useState()
+    const [controlOfferable,setControlOfferable] = useState(true)
+
+    useEffect(()=>{
+        getCategory()
+        getBrand()
+        getColor()
+    },[])
+
+    const getCategory = async ()=>{
+        const newCategory = await getAllCategories()
+        setCategories(newCategory)
+        //console.log('newCategory',newCategory)
+      }
+
+    const getBrand = async ()=>{
+        const newBrand = await getAllBrands()
+        setBrands(newBrand)
+        //console.log('newBrand',newBrand)
+      }
+
+    const getColor = async ()=>{
+        const newColor = await getAllColors()
+        setColors(newColor)
+        console.log('newColor',newColor)
+      }
+
+      console.log('addProduct colors',colors)
+
+    const addProduct = async (data) => {
+        const user = JSON.parse(localStorage.getItem('userProfile'))
+        if(data.isOfferable[0] !== 'on'){
+            setControlOfferable(false)
+        }
+        console.log('dfsfsf',controlOfferable)
+        const formData = new FormData()
+        // formData.append('name',data.name)
+        // formData.append('description',data.description)
+        // formData.append('category',data.category.toString())
+        // formData.append('brand',data.brand)
+        // formData.append('color',data.color)
+        // formData.append('status',data.status)
+        // formData.append('price',Number(data.price))
+        // formData.append('isOfferable', true)
+        // formData.append('isSold', false)
+        // formData.append('users_permissions_user', user.id.toString())
+        // formData.append('image', data.imgFile)
+        let appendData = {
+            name: data.name,
+            description: data.description,
+            category: data.category.toString(),
+            brand: data.brand,
+            color:data.color,
+            status: data.status,
+            price: Number(data.price),
+            isOfferable: controlOfferable,
+            isSold: false,
+            users_permissions_user: user.id.toString()
+        }
+        let jsonData = JSON.stringify(appendData)
+        formData.append('data',jsonData)
+        formData.append('files.image', data.imgFile)
+        
+        console.log('formdata',formData.getAll('data'))
+
+        // try {
+        //     await axios
+        //       .post('https://bootcamp.akbolat.net/products', formData)
+        //       .then((response) => {
+        //         console.log('well done',response)
+        //       })
+        //       .catch((error) => {
+        //         console.log('An error occured', error.response)
+        //       });
+        //   } catch (err) {
+        //     console.log('An err', err.response)
+        //   }
     }
     return (
         <Layout>
@@ -22,7 +105,7 @@ function AddProductPage() {
                      color: '',
                      status: '',
                      price: '',
-                     offerStatus: '',
+                     isOfferable: '',
                      imgFile: ''
 
                     }}
@@ -36,46 +119,59 @@ function AddProductPage() {
                         <form onSubmit={handleSubmit}>
                             <div className='container'>
                                 <div className='leftContainer'>
-                                    <div className='leftTitle'>Ürün Detayları</div>
+                                    <div className='leftTitle title'>Ürün Detayları</div>
                                     <div className='nameContainer'>
-                                        <label>Ürün adı</label>
-                                        <input type='text' name='name' placeholder='Örnek: Iphone 12 Pro Max'
+                                        <label className='markTitle'>Ürün adı</label>
+                                        <input type='text' name='name' placeholder='Örnek: Iphone 12 Pro Max' className='nameInput'
                                             value={values.name} onChange={handleChange} onBlur={handleBlur} />
                                     </div>
                                     <div className='descriptionContainer'>
-                                        <label>Açıklama</label>
-                                        <input type='text' name='description' placeholder='Ürün açıklaması girin'
+                                        <label className='markTitle'>Açıklama</label>
+                                        <textarea  name='description' placeholder='Ürün açıklaması girin' rows="3"
                                             value={values.description} onChange={handleChange} onBlur={handleBlur} />
                                     </div>
                                     <div className='categoryAndBrand'>
                                         <div className='category'>
-                                            <label>Kategori</label>
+                                            <label className='markTitle'>Kategori</label>
                                             <select name='category' placeholder='Kategori seç'
                                                 onChange={handleChange} onBlur={handleBlur}>
-                                                <option value={'Ayakkabı'}>Ayakkabı</option>
-                                                <option value={'Pantolon'}>Pantolon</option>
+                                                <option >Kategori seçin</option>
+                                                {
+                                                    categories && categories.map((category,index)=>
+                                                        <option value={category.id} key={index} >{category.name}</option>
+                                                        )
+                                                }
+                                                
                                             </select>
                                         </div>
                                         <div className='brand'>
-                                            <label>Marka</label>
+                                            <label className='markTitle'>Marka</label>
                                             <select name='brand' placeholder='Marka seç'
                                                 onChange={handleChange} onBlur={handleBlur}>
-                                                <option value='Mavi'>Mavi</option>
-                                                <option value='LTB'>LTB</option>
+                                                <option className='markTitle'>Marka seç</option>
+                                                {
+                                                    brands && brands.map((brand,index)=>
+                                                        <option key={index} value={brand.name}>{brand.name}</option>
+                                                    )
+                                                }
                                             </select>
                                         </div>
                                     </div>
                                     <div className='colorAndStatus'>
                                         <div className='color'>
-                                            <label>Renk</label>
+                                            <label className='markTitle'>Renk</label>
                                             <select name='color' placeholder='Renk seç'
                                                 onChange={handleChange} onBlur={handleBlur}>
-                                                <option value='Kırmızı'>Kırmızı</option>
-                                                <option value='Beyaz'>beyaz</option>
+                                                <option >Renk seç</option>
+                                                {
+                                                    colors && colors.map((color,index)=>
+                                                        <option key={index} value={color.name}>{color.name}</option>
+                                                    )
+                                                }
                                             </select>
                                         </div>
                                         <div className='status'>
-                                            <label>Kullanım durumu</label>
+                                            <label className='markTitle'>Kullanım durumu</label>
                                             <select name='status' placeholder='Kullanım durumu seç'
                                                 onChange={handleChange} onBlur={handleBlur}>
                                                 <option value='Yeni'>Yeni</option>
@@ -87,17 +183,23 @@ function AddProductPage() {
                                         </div>
                                     </div>
                                     <div className='priceAndOffer'>
-                                        <label>Fiyat</label>
-                                        <input type='text' name='price' value={values.price} onChange={handleChange} onBlur={handleBlur} />
-                                        <div>
-                                            <label>Fiyat ve Teklif opsiyonu</label>
-                                            <input type='checkbox' name='offerStatus' onChange={handleChange} onBlur={handleBlur}/>
+                                        <label className='markTitle'>Fiyat</label>
+                                        <input type='text' name='price' className='priceInput' placeholder='Bir fiyat girin'
+                                        value={values.price} onChange={handleChange} onBlur={handleBlur} />
+                                        <div className='switchContainer'>
+                                            <label className='markTitle'>Teklif opsiyonu</label>
+                                            <Switch
+                                                  onChange={handleChange}
+                                                  onBlur={handleBlur}
+                                                  name= 'isOfferable'
+                                                />
+                                            {/* <input type='checkbox' name='offerStatus' onChange={handleChange} onBlur={handleBlur}/> */}
                                         </div>
                                     </div>
                                 </div>
                                 <div className='rightContainer'>
-                                    <div className='rightTitle'>Ürün Resmi</div>
-                                    <input type='file' name='imgFile' onChange={handleChange} onBlur={handleBlur} />
+                                    <div className='rightTitle title'>Ürün Resmi</div>
+                                    <input type='file'  name='imgFile' onChange={handleChange} onBlur={handleBlur} />
                                     <button type='submit'>Kaydet</button>
                                 </div>
                             </div>

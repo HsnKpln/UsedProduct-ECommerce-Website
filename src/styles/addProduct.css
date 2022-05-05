@@ -5,12 +5,79 @@
 
 }
 .leftContainer{
-    width: 49%;
-    background-color: yellow;
+    width: 50%;
+    height: 75vh;
+    background-color: white;
+    padding: 2%;
+
 
 }
 .rightContainer{
-    width: 49%;
+    width: 50%;
     background-color: blue;
+    padding: 2%;
+    
+}
+.title{
+    font: normal normal bold 25px/23px Nunito;
+    color: #525252;
+    opacity: 1;
+    margin-bottom: 2vh;
+}
+.markTitle{
+    font: normal normal normal 15px/20px Nunito;
+    color: #525252;
+    opacity: 1;
+}
+.nameInput{
+    width: 96%;
+    border: none;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    padding: 12px;
+    margin-bottom: 2vh;
+}
+textarea{
+    width: 96%;
+    border: none;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    padding: 12px;
+    margin-bottom: 2vh;
+}
+.categoryAndBrand, .colorAndStatus{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2vh;
+}
+.category, .brand, .color, .status{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+.categoryAndBrand select, .colorAndStatus select{
+    border: none;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    padding: 12px;
+}
+.priceAndOffer{
+    display: flex;
+    flex-direction: column;
+    width: 226px;
+}
+.priceInput{
+    border: none;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+    padding: 12px;
+}
+.switchContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.rightContainer input{
     
 }

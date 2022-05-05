@@ -22,5 +22,9 @@ export const URL = {
     products: '/products',
     register: '/auth/local/register',
     login: '/auth/local',
-    offers: '/offers'
+    offers: '/offers',
+    categories: '/categories',
+    brands: '/brands',
+    colors: '/colors'
+
 }

@@ -12,23 +12,27 @@ import { useProduct } from '../contexts/ProductContext';
 
 function Home() {
   const { loginSuccess } = useUser();
-  const { getAllProducts} = useProduct();
+  const { getAllProducts,getAllCategories} = useProduct();
 
   const [products,setProducts] = useState()
   const [categoryProducts,setCategoryProducts] = useState([])
+  const [categories,setCategories] = useState()
 
   useEffect(()=>{
     getData()
+    
  },[])
   
+ 
 
   const getData = async () =>{
    const data = await getAllProducts()
    setProducts(data)
    setCategoryProducts(0)
-   console.log('hasssaaann',data)
+   //console.log('hasssaaann',data)
   }
-  console.log('home',products)
+  //console.log('home',products)
+  
 
   const category = async (c) =>{
     // const sessionData = await sessionStorage.getItem('allProducts')
