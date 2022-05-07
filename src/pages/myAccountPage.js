@@ -18,15 +18,29 @@ function MyAccountPage() {
     const productsLocal = JSON.parse(sessionStorage.getItem('allProducts'))
     setProducts(productsLocal)
     getMyProducts()
+    getGiveProducts()
   }, [])
 
   const getMyProducts = async () => {
 
     try {
-      const res = await axios.get('https://bootcamp.akbolat.net/products?users_permissions_user=535')
+      const res = await axios.get(`https://bootcamp.akbolat.net/products?users_permissions_user=${user.id}`)
       if (res.statusText === 'OK') {
         const offeredProduct = res.data && res.data.filter(item => item.offers.length > 0)
         setMyProducts(offeredProduct)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getGiveProducts = async () => {
+
+    try {
+      const res = await axios.get(`https://bootcamp.akbolat.net/offers?users_permissions_user=${user.id}`)
+      if (res.statusText === 'OK') {
+        console.log('tekliflerim2',res.data)
+        return res.data
       }
     } catch (error) {
       console.log(error)
@@ -60,10 +74,10 @@ function MyAccountPage() {
           borderRadius: '8px'
         }}>
           {
-            myProducts && myProducts.map(myProduct =>
-              <>
-                <div>{myProduct.offers.map(item =>
-                  <div className='offeredProductContainer'>
+            myProducts && myProducts.map((myProduct,index) =>
+              <React.Fragment key={index} >
+                <div>{myProduct.offers.map((item,index) =>
+                  <div className='offeredProductContainer' key={index}>
                     <div className='offeredProductImgContainer'>
                       <img
                         src={myProduct.image != null ? `https://bootcamp.akbolat.net${myProduct.image.formats.thumbnail.url}`
@@ -83,7 +97,7 @@ function MyAccountPage() {
                       </div>
                   </div>
                 )}</div>
-              </>
+              </React.Fragment>
             )
           }
         </Box>
