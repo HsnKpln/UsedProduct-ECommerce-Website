@@ -1,0 +1,48 @@
+.offeredProductContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.offeredProductImgContainer{
+    display: flex;
+}
+.myOfferedProductImg{
+    height: 7.78vh;
+    width: 78px;
+}
+.offerAndName{
+    margin-left: 10px;
+}
+.myOfferedProductName{
+    font: normal normal normal 18px/23px Nunito;
+    color: #555555;
+    opacity: 1;
+}
+.myProductOfferedPrice{
+    background-color:  #F2F2F2;
+    border-radius: 8px;
+    font: normal normal normal 15px/20px Nunito;
+    color: #B1B1B1;
+    margin-top: 5px;
+}
+.myProductOfferedPrice span{
+    font: normal normal bold 15px/20px Nunito;    
+    color: #525252;
+}
+.offeredProductBtnContainer{
+    display: flex;
+    align-items: center;
+}
+.offeredProductBtnContainer .submitBtn{
+  background-color: #4B9CE2;
+  border-radius: 8px;
+  font: normal normal normal 15px/23px Nunito;
+  color: #FFFFFF;
+  padding: 5px 25px;
+}
+.offeredProductBtnContainer .rejectBtn{
+    background-color: #F77474;
+    border-radius: 8px;
+    font: normal normal normal 15px/23px Nunito;
+    color: #FFFFFF;
+    padding: 5px 25px;
+}

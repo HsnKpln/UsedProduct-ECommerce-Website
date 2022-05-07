@@ -9,6 +9,7 @@ import { OfferModalSchema } from '../constants/yup/yupSchema'
 import { useProduct } from '../contexts/ProductContext'
 import '../styles/addProduct.css'
 import Switch from '@mui/material/Switch'
+import UploadIcon from '../components/UploadIcon'
 
 function AddProductPage() {
     const {getAllCategories,getAllBrands,getAllColors} = useProduct()
@@ -78,20 +79,20 @@ function AddProductPage() {
         formData.append('data',jsonData)
         formData.append('files.image', data.imgFile)
         
-        console.log('formdata',formData.getAll('data'))
+        console.log('formdata',formData.getAll('files.image'))
 
-        // try {
-        //     await axios
-        //       .post('https://bootcamp.akbolat.net/products', formData)
-        //       .then((response) => {
-        //         console.log('well done',response)
-        //       })
-        //       .catch((error) => {
-        //         console.log('An error occured', error.response)
-        //       });
-        //   } catch (err) {
-        //     console.log('An err', err.response)
-        //   }
+        try {
+            await axios
+              .post('https://bootcamp.akbolat.net/products', formData)
+              .then((response) => {
+                console.log('well done',response)
+              })
+              .catch((error) => {
+                console.log('An error occured', error.response)
+              });
+          } catch (err) {
+            console.log('An err', err.response)
+          }
     }
     return (
         <Layout>
@@ -115,8 +116,8 @@ function AddProductPage() {
                 }}
             >
                 {
-                    ({ values, handleChange, handleBlur, errors, handleSubmit, touched, resetForm }) =>
-                        <form onSubmit={handleSubmit}>
+                    ({ values, handleChange, handleBlur, errors, handleSubmit, touched, resetForm, setFieldValue }) =>
+                        <form  onSubmit={handleSubmit}>
                             <div className='container'>
                                 <div className='leftContainer'>
                                     <div className='leftTitle title'>Ürün Detayları</div>
@@ -199,8 +200,19 @@ function AddProductPage() {
                                 </div>
                                 <div className='rightContainer'>
                                     <div className='rightTitle title'>Ürün Resmi</div>
-                                    <input type='file'  name='imgFile' onChange={handleChange} onBlur={handleBlur} />
+                                    <div className='imgAddProductContainer'>
+                                    <div className='inputAddProductContainer'>
+                                    <UploadIcon/>
+                                    <div className='uploadText'>Sürükleyip bırakarak yükle</div>
+                                    <div className='uploadText'>veya</div>
+                                    <input type='file'  name='imgFile' onChange={(event)=>{setFieldValue("imgFile",event.currentTarget.files[0])}} onBlur={handleBlur} />
+                                    
+                                    <div className='uploadWarnText'>PNG ve JPEG Dosya boyutu: max. 100kb</div>
+                                    </div>
+                                    <div className='btnContainer'>
                                     <button type='submit'>Kaydet</button>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

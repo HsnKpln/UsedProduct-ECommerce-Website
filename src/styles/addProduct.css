@@ -7,14 +7,15 @@
 .leftContainer{
     width: 50%;
     height: 75vh;
-    background-color: white;
+    background-color: #fff;
     padding: 2%;
 
 
 }
 .rightContainer{
     width: 50%;
-    background-color: blue;
+    height: 75vh;
+    background-color: #fff;
     padding: 2%;
     
 }
@@ -78,6 +79,45 @@ textarea{
     justify-content: space-between;
     align-items: center;
 }
-.rightContainer input{
-    
+.imgAddProductContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    height: 70vh;
+}
+.inputAddProductContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 15vh;
+    border: 1px dashed #B1B1B1;
+    border-radius: 10px;
+    margin-top: 25px;
+
+}
+.btnContainer{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+.btnContainer button{
+    background-color: #4B9CE2;
+    color: #fff;
+    padding: 10px;
+    width: 42.5%;
+    margin-right: 2.5%;
+}
+.uploadText{
+    font: normal normal 600 14px/15px Nunito;
+    color: #525252;
+}
+.uploadWarnText{
+    font: normal normal normal 12px/14px Nunito;
+    color: #B1B1B1;
+    opacity: 1;
+    margin-top: 5px;
 }
