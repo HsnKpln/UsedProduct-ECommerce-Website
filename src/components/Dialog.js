@@ -47,7 +47,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
   );
 };
 
-export default function CustomizedDialogs({ children, buttonName, buttonColor, buttonBg, title, pay, prd }) {
+export default function CustomizedDialogs({ children, buttonName,buttonWidth,buttonPadding, buttonColor, buttonBg, title, pay, prd, submitOffer,offeredId }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -64,9 +64,8 @@ export default function CustomizedDialogs({ children, buttonName, buttonColor, b
           color: buttonColor,
           background: buttonBg,
           fontSize: 'normal normal bold 18px/24px Nunito',
-          width: '225px',
-          paddingTop: '11px',
-          paddingBottom: '10px',
+          width: buttonWidth,
+          padding: buttonPadding,
           border: 'none',
           marginRight: '5px',
           borderRadius: '8px',
@@ -102,7 +101,10 @@ export default function CustomizedDialogs({ children, buttonName, buttonColor, b
                 >
                   Vazgeç
                 </Button>
-                <Button onClick={() => pay(prd)}
+                <Button onClick={() =>{
+                 prd != null ? pay(prd) : offeredId && submitOffer(offeredId)
+                setOpen(false)
+              } }
                 sx={{
                   width: '150px',
                   backgroundColor: '#4B9CE2',

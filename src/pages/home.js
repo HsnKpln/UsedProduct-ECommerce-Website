@@ -60,7 +60,10 @@ function Home() {
             <div className='imgContainer'>
               <HomeImg />
               <div className='categoryContainer'>
-                <div className='category' onClick={() => getData()}>Hepsi</div>
+                <div className={'category'} onClick={() => { getData() }}
+                  >
+                    Hepsi
+                  </div>
                 {/* <div className='category' onClick={() => category('Pantolon')}  >Pantolon</div>
                 <div className='category' onClick={() => category('Gömlek')}>Gömlek</div>
                 <div className='category' onClick={() => category('Tişört')}>Tişört</div>
@@ -75,10 +78,10 @@ function Home() {
                 <div className='category' onClick={() => category('Çanta')}>Çanta</div> */}
                 {
                   categories && categories.map((item, index) =>
-                    <div className='category' key={index} onClick={() => category(item.name)} >{item.name}</div>
+                    <div className={'category' } key={index} onClick={() => { category(item.name)}} >{item.name}</div>
                   )
                 }
-                <div className='category' >Diğer</div>
+                <div className='category' onClick={() => { category('Diğer')}}  >Diğer</div>
               </div>
             </div>
 

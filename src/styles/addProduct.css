@@ -110,6 +110,7 @@ textarea{
     padding: 10px;
     width: 42.5%;
     margin-right: 2.5%;
+    border-radius: 8px;
 }
 .uploadText{
     font: normal normal 600 14px/15px Nunito;
@@ -120,4 +121,8 @@ textarea{
     color: #B1B1B1;
     opacity: 1;
     margin-top: 5px;
+}
+.errorSpan{
+    color: red;
+    font: normal normal normal 15px/20px Nunito;
 }

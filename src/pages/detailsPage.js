@@ -78,9 +78,9 @@ function DetailsPage() {
     }).then((response) => {
       console.log('odeme basarılı', response)
 
-      const eskiArray = [...singleProduct]
-      eskiArray[0].isSold = true;
-      setSingleProduct(eskiArray)
+      const exArray = [...singleProduct]
+      exArray[0].isSold = true;
+      setSingleProduct(exArray)
 
 
     })
@@ -163,17 +163,19 @@ function DetailsPage() {
                     <div className='notOnSale'>Bu ürün Satışta Değil</div>
                     :
                     <div className='modalContainer'>
-                      <CustomizedDialogs buttonName={"Satın Al"} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Satın Al'}
+                      <CustomizedDialogs buttonName={"Satın Al"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Satın Al'}
                        pay={pay} prd={prd}
                       >
                         <div className='summitBuyText'>Satın almak istiyor musunuz?</div>
                         {/* <button onClick={() => pay(prd)}>satın al</button> */}
                       </CustomizedDialogs>
                       {
-                        givenOffer || (myOffer && myOffer.length > 0) ? <CustomizedDialogs
-                          buttonName={"Teklifi geri çek"} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Teklifi Geri Çek'}></CustomizedDialogs> :
+                        givenOffer || (myOffer && myOffer.length > 0) ? 
+                        <CustomizedDialogs
+                          buttonName={"Teklifi geri çek"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Teklifi Geri Çek'}>
+                          </CustomizedDialogs> :
                           <CustomizedDialogs
-                            buttonName={"Teklif ver"} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Teklif Ver'}
+                            buttonName={"Teklif ver"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Teklif Ver'}
                           >
                             <div className='sumInfoContainer'>
                               <div className='sumInfo'>

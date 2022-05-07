@@ -5,10 +5,8 @@ import LogoApp from './LogoApp'
 import Container from '@mui/material/Container'
 import PlusIcon from './PlusIcon'
 import AccountIcon from './AccountIcon'
-import {useUser} from '../contexts/UserContext'
 
 function Layout({children}) {
-  const {loginSuccess,registerSuccess,loginJwtSuccess,registerJwtSuccess} = useUser()
   const [jwtControl,setJwtControl] = useState()
   const navigate = useNavigate()
   
@@ -21,13 +19,9 @@ function Layout({children}) {
     <>
      <div className='layoutContainer'>
        <Container maxWidth='lg' sx={{ display: "flex", justifyContent: "space-between",alignItems:"center"}} >
-       <div>
+            <div onClick={()=> navigate('/home')}>
                <LogoApp width={"100%"} height={'3.89vh'} />
              </div>
-             {/* <div>
-            <Link to='/register'>Register</Link>
-            <Link to='/login'>Login</Link>
-             </div> */}
              <div className='btnGroup'>
                 <button onClick={()=> navigate('/addproduct')}>
                   <PlusIcon/>

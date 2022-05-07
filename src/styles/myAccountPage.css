@@ -1,6 +1,7 @@
 .offeredProductContainer{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1.85vh;
 }
 .offeredProductImgContainer{
     display: flex;
@@ -45,4 +46,32 @@
     font: normal normal normal 15px/23px Nunito;
     color: #FFFFFF;
     padding: 5px 25px;
+}
+.offeredBtn{
+    font: normal normal normal 15px/20px Nunito;
+    background-color: transparent;
+    color: #B1B1B1;
+    border: none;
+    border-radius: none;
+}
+.checkedBtn{
+    font: normal normal bold 15px/20px Nunito;
+    color: #4B9CE2;
+    background-color: transparent;
+    border-bottom: 1px solid #4B9CE2;
+}
+.submittedText, .takenOfferSubmitText{
+    font: normal normal normal 14px/20px Nunito;
+    color: #4B9CE2;
+    margin-right: 5px;
+}
+.rejectedText, .takenOfferRejectText{
+    font: normal normal normal 14px/20px Nunito;
+    color: #F77474;
+    margin-right: 5px;
+}
+.bought{
+    font: normal normal normal 14px/20px Nunito;
+    color: #46AF32;
+    margin-right: 5px;
 }

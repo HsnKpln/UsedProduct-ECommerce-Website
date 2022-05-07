@@ -20,4 +20,9 @@ export const OfferModalSchema = yup.object().shape({
    .number()
    .required('Teklif verebilmek için bir değer belirlemelisiniz.')
 });
-
+export const AddProductSchema = yup.object().shape({
+  price: yup
+   .number()
+   .required('Ürün eklemek için bir fiyat girmelisniz.')
+   .typeError('lütfen rakam girin')
+});
