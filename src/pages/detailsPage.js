@@ -1,6 +1,6 @@
-import { Button, Container, DialogActions, Paper } from '@mui/material'
-import { Box, height, padding } from '@mui/system'
-import React, { useEffect, useMemo, useState } from 'react'
+import { Container } from '@mui/material'
+import { Box} from '@mui/system'
+import React, { useEffect,  useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CustomizedDialogs from '../components/Dialog'
 import Layout from '../components/Layout'
@@ -12,32 +12,29 @@ import axios, { URL } from '../constants/api/axios'
 
 function DetailsPage() {
   const { singleProduct, setSingleProduct, getProducts } = useProduct()
+  // Id of product taken from url via useParams
   const { id } = useParams()
 
   const [givenOffer, setGivenOffer] = useState()
 
+  // user information got from localstroge
   const user = JSON.parse(localStorage.getItem('userProfile'))
 
-
+  
   const UrunID = id
   useEffect(() => {
     getProducts(UrunID)
   }, [])
+  
+  // User's offers found
   const myOffer = singleProduct[0].offers.filter(item => item.users_permissions_user == user.id)
-  //console.log('önceki',myOffer[0].offerPrice)
-
-  //console.log('contexten gelen', singleProduct)
-
-  // useEffect(()=>{
-  //   setControlIsSold(true)
-  // },[controlIsSold])
 
 
+ // Offer sent via axios put method when submitted offer by user
   const offerSubmit = async (e) => {
-    //e.preventDefault();
+    // Assigned to the variable so that the offer from the user can be more easily understood.
     const offer = e;
-
-
+    
     try {
       await axios
         .post(URL.offers, {
@@ -58,18 +55,14 @@ function DetailsPage() {
         })
         .catch((error) => {
           console.log('An error occured', error.response)
-          //console.log('error message ', error.response.data.message[0].messages[0].message)
         });
     } catch (err) {
       console.log('An err', err.response)
     }
     
-    //console.log('async denemesi', offer)
-    //console.log('user', singleProduct[0].id.toString())
-    //console.log('eymen2', singleProduct[0].offers)
-
   }
 
+ // Purchase request sent via axios put method when submitted purchase by user
   const pay = async (x) => {
     await axios.put(URL.products + '/' + x.id, {
       name: x.name,
@@ -81,12 +74,9 @@ function DetailsPage() {
       const exArray = [...singleProduct]
       exArray[0].isSold = true;
       setSingleProduct(exArray)
-
-
     })
       .catch((error) => {
         console.log('An error occured', error.response)
-        //console.log('error message ', error.response.data.message[0].messages[0].message)
       });
   }
 
@@ -167,7 +157,6 @@ function DetailsPage() {
                        pay={pay} prd={prd}
                       >
                         <div className='summitBuyText'>Satın almak istiyor musunuz?</div>
-                        {/* <button onClick={() => pay(prd)}>satın al</button> */}
                       </CustomizedDialogs>
                       {
                         givenOffer || (myOffer && myOffer.length > 0) ? 
@@ -191,38 +180,6 @@ function DetailsPage() {
                               <div className='sumInfoPrice'>{prd.price} TL</div>
                             </div>
                             <Formik
-                              // initialValues={{
-                              //   offer: "",
-                              // }}
-                              // onSubmit = {(values,actions)={
-                              //   if(values){
-                              //     try{
-                              //        axios
-                              //         .post(URL.offers, {
-                              //           product: singleProduct[0].id,
-                              //           users_permissions_user: user.id,
-                              //           offerPrice: offer,
-                              //           isStatus: null,
-                              //           published_at: Date.now(),
-                              //           created_by: Date.now(),
-                              //           updated_by: Date.now()
-                              //         })
-                              //         .then((response) => {
-                              //           console.log('well done')
-                              //           console.log('User Profile', response)
-                              //         })
-                              //         .catch((error) => {
-                              //           console.log('An error occured', error.response)
-                              //           //console.log('error message ', error.response.data.message[0].messages[0].message)
-                              //         });
-                              //     } catch (err) {
-                              //       console.log('An err', err.response)
-                              //     }
-                              //   }
-
-                              // }}
-                              // validationSchema={OfferModalSchema}
-
                               initialValues={{ offer: '' }}
                               onSubmit={(values, actions) => {
                                 console.log('sumbit edildi', values)

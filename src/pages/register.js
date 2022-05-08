@@ -24,12 +24,11 @@ function Register() {
 
 
   const submitRegister = async (value) => {
-    // e.preventDefault();
-    // const email = e.target[0].value
-    // const password = e.target[1].value
+    // Data which come from form with parameter, assigned to variable
     const email = value.email
     const password = value.password
-
+    
+    //  the request send via axios to Api in try/cacth block
     try {
       await axios
         .post(URL.register, {
@@ -39,16 +38,16 @@ function Register() {
         })
         .then((response) => {
           console.log('well done')
-          //  console.log('User Profile',response.data.user)
-          //  console.log('Response data',response.data)
-          //  console.log('Response',response)
           console.log('User Profile', response.data.jwt)
-
+           // Token which come from Api saved to localstorage
           localStorage.setItem('userJwt', JSON.stringify(response.data.jwt))
           localStorage.setItem('userProfile', JSON.stringify(response.data.user))
+
+          // Token added to header part as taken from localstorage
           const jwt = JSON.parse(localStorage.getItem('userJwt'));
           axios.defaults.headers.common = { 'Authorization': `Bearer ${jwt}` }
 
+          // Register can be done, because of request success
           setRegisterSuccess(true)
         })
         .catch((error) => {
@@ -123,13 +122,6 @@ function Register() {
                   </div>
                 </div>
               </div>
-              {/* <Stack sx={{ width: '30%' }} spacing={2}>
-      <Alert severity="error">Emailiniz veya şifreniz hatalı!</Alert>
-      <Alert severity="success">This is a success alert!</Alert>
-    </Stack>
-        <Box 
-        sx={{ bgcolor: 'white', height: '50vh', width: '60%', display: 'flex', justifyContent: 'center', alignItems:'center' }}>
-         </Box> */}
             </div>
           )
       }

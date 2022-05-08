@@ -39,6 +39,7 @@
   font: normal normal normal 15px/23px Nunito;
   color: #FFFFFF;
   padding: 5px 25px;
+  margin-left: 5px;
 }
 .offeredProductBtnContainer .rejectBtn{
     background-color: #F77474;
@@ -46,6 +47,7 @@
     font: normal normal normal 15px/23px Nunito;
     color: #FFFFFF;
     padding: 5px 25px;
+    margin-left: 5px;
 }
 .offeredBtn{
     font: normal normal normal 15px/20px Nunito;

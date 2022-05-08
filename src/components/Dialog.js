@@ -4,9 +4,7 @@ import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
-import { borderRadius } from '@mui/system';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -46,7 +44,8 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
     </DialogTitle>
   );
 };
-
+// I customized the modal by sending Props as per page requirements.
+//I sent the methods as props and  I triggered the process from here.
 export default function CustomizedDialogs({ children, buttonName,buttonWidth,buttonPadding, buttonColor, buttonBg, title, pay, prd, submitOffer,offeredId }) {
   const [open, setOpen] = React.useState(false);
 

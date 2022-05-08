@@ -10,8 +10,8 @@ function ProductCard(item) {
   const {getProducts} = useProduct()
   const navigate = useNavigate()
 
+  // Redirected to the page of relevant product by id
   const detailPage = (id) =>{
-    console.log('clicked')
     navigate(`/detail/${id}`)
     getProducts(id)
   }

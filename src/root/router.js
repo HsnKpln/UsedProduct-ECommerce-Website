@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import AccountPage from '../pages/accountPage'
 import AddProductPage from '../pages/addProductPage'
 import DetailsPage from '../pages/detailsPage'
 import Home from '../pages/home'
@@ -16,7 +15,6 @@ function Router() {
           <Route path='/' element={<Register/>}/>
           <Route path='/home' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
-          <Route path='/account/' element={<AccountPage/>}/>
           <Route path='/detail/:id' element={<DetailsPage/>}/>
           <Route path='/addproduct' element={<AddProductPage/>}/>
           <Route path='/myaccount' element={<MyAccountPage/>}/>

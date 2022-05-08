@@ -22,34 +22,28 @@ function Home() {
     getCategory()
   }, [])
 
-  const getCategory = async () => {
-    const newCategory = await getAllCategories()
-    setCategories(newCategory)
-    //console.log('newCategory',newCategory)
-  }
-
-
+  // Created all product via function in the product context
   const getData = async () => {
     const data = await getAllProducts()
     setProducts(data)
     setCategoryProducts(0)
-    //console.log('hasssaaann',data)
   }
-  //console.log('home',products)
 
+  // Categories of products taken via function in the product context
+  const getCategory = async () => {
+    const newCategory = await getAllCategories()
+    setCategories(newCategory)
+  }
 
-  const category = async (c) => {
-    console.log('gelen', c)
-    const productsOfCategory = await products && products.filter(product => product.category?.name === c)
+  // Products belonging to the relevant category were brought.
+  const category = async (categoryName) => {
+    // Products filtered by parameter 
+    const productsOfCategory = await products && products.filter(product => product.category?.name === categoryName)
     setCategoryProducts(productsOfCategory)
   }
-  console.log('yunus', categoryProducts)
   return (
     <Layout>
       <div className='container'>
-        {
-          console.log('homeLogin', loginSuccess)
-        }
         <Container maxWidth="lg" sx={{ marginTop: 2.5 }}>
           <Box sx={{ bgcolor: '#F2F2F2', height: '100vh' }} >
             <div className='imgContainer'>

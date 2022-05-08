@@ -12,6 +12,7 @@ function Layout({children}) {
   
   useEffect(()=>{
     const dataJwt = JSON.parse(localStorage.getItem('userJwt'))
+    // I checked if the user is logged in
     setJwtControl(dataJwt)
   },[])
 

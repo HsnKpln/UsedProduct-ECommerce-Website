@@ -9,12 +9,12 @@ import { AddProductSchema } from '../constants/yup/yupSchema'
 import { useProduct } from '../contexts/ProductContext'
 import '../styles/addProduct.css'
 import UploadIcon from '../components/UploadIcon'
-import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles'
+import Switch from '@mui/material/Switch'
+import Stack from '@mui/material/Stack'
 
 function AddProductPage() {
-    const label = { inputProps: { 'aria-label': 'Switch demo' } };
+    // Created customize style for switch button
     const AntSwitch = styled(Switch)(({ theme }) => ({
         width: 28,
         height: 16,
@@ -71,31 +71,32 @@ function AddProductPage() {
         getColor()
     }, [])
 
+    // Categories taken from product context
     const getCategory = async () => {
         const newCategory = await getAllCategories()
         setCategories(newCategory)
-        //console.log('newCategory',newCategory)
     }
 
+    // Brands taken from product context
     const getBrand = async () => {
         const newBrand = await getAllBrands()
         setBrands(newBrand)
-        //console.log('newBrand',newBrand)
     }
 
+    // colors taken from product context
     const getColor = async () => {
         const newColor = await getAllColors()
         setColors(newColor)
-        console.log('newColor', newColor)
     }
 
-
+    // created function to add product
     const addProduct = async (data) => {
         const user = JSON.parse(localStorage.getItem('userProfile'))
         if (data.isOfferable[0] !== 'on') {
             setControlOfferable(false)
         }
-        console.log('dfsfsf', controlOfferable)
+        
+        // Datas converts to json and added the form data
         const formData = new FormData()
         let appendData = {
             name: data.name,
@@ -115,6 +116,7 @@ function AddProductPage() {
 
         console.log('formdata', formData.getAll('data'))
 
+        // formData sent to api via axion post method
         try {
             await axios
                 .post('https://bootcamp.akbolat.net/products', formData)
@@ -226,12 +228,6 @@ function AddProductPage() {
                                                 { errors.price && touched.price &&  <span className='errorSpan'>{errors.price}</span>}
                                             <div className='switchContainer'>
                                                 <label className='markTitle'>Teklif opsiyonu</label>
-                                                {/* <Switch
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                    name='isOfferable'
-                                                    defaultChecked
-                                                /> */}
                                                 <FormGroup>
                                                     <Stack direction="row" spacing={1} alignItems="center">
                                                         <AntSwitch  

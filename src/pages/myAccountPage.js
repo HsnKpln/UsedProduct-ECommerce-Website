@@ -22,12 +22,14 @@ function MyAccountPage() {
     getGiveProducts()
   }, [])
 
+  // get my products from api via axios
   const getMyProducts = async () => {
-
     try {
       const res = await axios.get(`https://bootcamp.akbolat.net/products?users_permissions_user=${user.id}`)
       if (res.statusText === 'OK') {
         const offeredProduct = res.data && res.data.filter(item => item.offers.length > 0)
+        console.log('bana aittt',res.data,user.id)
+
         setMyProducts(offeredProduct)
       }
     } catch (error) {
@@ -35,25 +37,24 @@ function MyAccountPage() {
     }
   }
 
+  // Products which given offer by me
   const getGiveProducts = async () => {
-
     try {
       const res = await axios.get(`https://bootcamp.akbolat.net/offers?users_permissions_user=${user.id}`)
       if (res.statusText === 'OK') {
         setGiveProducts(res.data)
-        //console.log('tekliflerim2',res.data)
       }
     } catch (error) {
       console.log(error)
     }
   }
 
+  //The function that makes the purchase when the given offer is approved.
   const submitOffer = async (offeredId) => {
     await axios.put(`https://bootcamp.akbolat.net/products/${offeredId}`, {
       isOfferable: false,
       isSold: true  
     }).then((response) => {
-      console.log('çok yani odeme basarılı', response)
       setControlBuyStatus(true)
     })
       .catch((error) => {
@@ -61,6 +62,8 @@ function MyAccountPage() {
       });
     
   }
+
+  // This function approve the offer for my product
   const submitTakenOffer = async (id) =>{
       try {
       const res = await axios.put(`https://bootcamp.akbolat.net/offers/${id}`, {
@@ -74,6 +77,8 @@ function MyAccountPage() {
       
     }
   }
+
+  // This function reject the offer for my product
   const rejectTakenOffer = async (id) =>{
     try {
     const res = await axios.put(`https://bootcamp.akbolat.net/offers/${id}`, {

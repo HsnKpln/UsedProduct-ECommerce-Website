@@ -4,6 +4,7 @@ export const baseURL = "https://bootcamp.akbolat.net/";
 
 const jwt = JSON.parse(localStorage.getItem('userJwt'));
 
+// If the token cannot be added in the Login or Register, I added in here as a precaution.
 const isEmpty = (obj) => {
     for (let key in obj) {
         if (obj.hasOwnProperty(key))

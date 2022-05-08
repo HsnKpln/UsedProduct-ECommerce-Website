@@ -24,12 +24,10 @@ function Login() {
   },[])
   
   const submitLogin = async (value) =>{
-      // e.preventDefault();
-      // const email = e.target[0].value
-      // const password = e.target[1].value
+      // Data which come from form with parameter, assigned to variable 
       const email = value.email
       const password = value.password
-
+      //  the request send via axios to Api in try/cacth block
       try {
         await axios
          .post(URL.login,{
@@ -40,22 +38,23 @@ function Login() {
            console.log('well done')
            console.log('User Profile',response.data.jwt)
 
+           // Token which come from Api saved to localstorage
            localStorage.setItem('userJwt',JSON.stringify(response.data.jwt))
            localStorage.setItem('userProfile',JSON.stringify(response.data.user))
            
+           // Token added to header part as taken from localstorage
            const jwt = JSON.parse(localStorage.getItem('userJwt'));
            axios.defaults.headers.common = { 'Authorization': `Bearer ${jwt}` }
            
+           // Login can be done, because of request success
            setLoginSuccess(true)
-           console.log('login',loginSuccess)
          })
          .catch((error)=>{
            console.log('An error occured', error.response)
-           console.log('error message ', error.response.data.message[0].messages[0].message)
            setErrorMessage(error.response.data.message[0].messages[0].message)
          });
       } catch (err) {
-        console.log('An error occured2', err.response)
+        console.log('An error occured', err.response)
       }
   }
 
