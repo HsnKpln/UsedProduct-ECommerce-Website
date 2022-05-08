@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Layout from '../components/Layout';
 import { useUser } from '../contexts/UserContext'
 import Box from '@mui/material/Box'
@@ -40,10 +39,6 @@ function Home() {
 
 
   const category = async (c) => {
-    // const sessionData = await sessionStorage.getItem('allProducts')
-    // setCategoryProducts(JSON.stringify(sessionData))
-    // console.log('category',sessionData)
-    // categoryProducts && categoryProducts.map(item=>console.log(item))
     console.log('gelen', c)
     const productsOfCategory = await products && products.filter(product => product.category?.name === c)
     setCategoryProducts(productsOfCategory)
@@ -64,18 +59,6 @@ function Home() {
                   >
                     Hepsi
                   </div>
-                {/* <div className='category' onClick={() => category('Pantolon')}  >Pantolon</div>
-                <div className='category' onClick={() => category('Gömlek')}>Gömlek</div>
-                <div className='category' onClick={() => category('Tişört')}>Tişört</div>
-                <div className='category' onClick={() => category('Şort')}>Şort</div>
-                <div className='category' onClick={() => category('Sweatshirt')}>Sweatshirt</div>
-                <div className='category' onClick={() => category('Kazak')}>Kazak</div>
-                <div className='category' onClick={() => category('Polar')}>Polar</div>
-                <div className='category' onClick={() => category('Mont')}>Mont</div>
-                <div className='category' onClick={() => category('Abiye')}>Abiye</div>
-                <div className='category' onClick={() => category('Ayakkabı')}>Ayakkabı</div>
-                <div className='category' onClick={() => category('Aksesuar')}>Aksesuar</div>
-                <div className='category' onClick={() => category('Çanta')}>Çanta</div> */}
                 {
                   categories && categories.map((item, index) =>
                     <div className={'category' } key={index} onClick={() => { category(item.name)}} >{item.name}</div>

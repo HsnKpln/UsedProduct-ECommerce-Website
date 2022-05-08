@@ -11,9 +11,6 @@ export const ControlSchema = yup.object().shape({
     .min(8, 'Şifreniz 8 karakterden az olamaz')
     .max(20, 'Şifreniz 20 karakterden fazla olamaz')
     .required('Şifre alanı zorunludur.'),
-  offer: yup
-   .string()
-   .required('Teklif verebilmek için bir değer belirlemelisiniz.')
 });
 export const OfferModalSchema = yup.object().shape({
   offer: yup

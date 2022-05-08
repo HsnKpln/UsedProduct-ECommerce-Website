@@ -23,10 +23,12 @@ function Login() {
     }
   },[])
   
-  const handleSubmit = async (e) =>{
-      e.preventDefault();
-      const email = e.target[0].value
-      const password = e.target[1].value
+  const submitLogin = async (value) =>{
+      // e.preventDefault();
+      // const email = e.target[0].value
+      // const password = e.target[1].value
+      const email = value.email
+      const password = value.password
 
       try {
         await axios
@@ -67,6 +69,13 @@ function Login() {
         <div className='loginContainer'>
         <CommonImg />
         <div className='loginFormContainer'>
+        {
+            errorMessage ? <div>{errorMessage ==="Identifier or password invalid." ? 
+            <Stack sx={{ width: '18%', borderRadius: '8px', position:'absolute', top:'12vh', right: '10px' }} spacing={2}>
+                <Alert severity="error">Emailniz ya da şifreniz hatalı.</Alert>
+            </Stack> 
+            : errorMessage}</div> : ""
+            }
           <div className='logoContainer'>
              <div className='logo'>
              <LogoApp width={"100%"} height={'6.75vh'} />
@@ -75,31 +84,29 @@ function Login() {
           <div className='loginForm'>
             <div className='loginTitle commonClass'>Giriş Yap</div>
             <p className='loginSubtitle commonClass'>Fırsatlardan yararlanmak için giriş yap!</p>
-            {
-            errorMessage ? <div>{errorMessage ==="Identifier or password invalid." ? 
-            <Stack sx={{ width: '100%' }} spacing={2}>
-                <Alert severity="error">Geçersiz email ya da şifre!</Alert>
-            </Stack> 
-            : errorMessage}</div> : ""
-          }
+            
             <Formik
              initialValues={{
               email:"",
               password: "",
              }}
+             onSubmit={(values, actions) => {
+              console.log('sumbit edildi', values)
+              submitLogin(values)
+            }}
              validationSchema={ControlSchema}
             >
               {
-                ({values,handleChange,handleBlur,errors,touched}) =>
+                ({values,handleChange,handleBlur,handleSubmit,errors,touched}) =>
                 <form onSubmit={handleSubmit}>
-                <div className='inputBlock' >
+                <div className='loginInputBlock' >
                   <label>Email</label>
                   <input type="text" name='email' placeholder='Email@example.com'
                    value={values.email} onChange={handleChange} onBlur={handleBlur}
                   />
                   { errors.email && touched.email &&  <span>{errors.email}</span>}
                 </div>
-                <div className='inputBlock'>
+                <div className='loginInputBlock'>
                   <label>Şifre</label>
                   <input type="password" name='password' placeholder='Şifreni gir' 
                   value={values.password} onChange={handleChange} onBlur={handleBlur}
@@ -107,7 +114,7 @@ function Login() {
                   { errors.password && touched.password &&  <span>{errors.password}</span>}
                   <div className='forgotPassword'>Şifremi unuttum</div>
                 </div>
-                <div>
+                <div className='loginInputBlock'>
                    <button type='submit'>Giriş Yap</button>
                 </div>
               </form>

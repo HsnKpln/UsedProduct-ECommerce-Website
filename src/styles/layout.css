@@ -11,9 +11,9 @@
     opacity: 1;
     font: normal normal bold 14px/14px Nunito;
     color: #4B9CE2;
+    padding: 0.7vh 10px;
+    margin-left: 10px;
 }
 button{
     border: none;
-    padding: 0.5em;
-    margin-left: 5px;
 }

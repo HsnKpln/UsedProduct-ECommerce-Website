@@ -163,7 +163,7 @@ function DetailsPage() {
                     <div className='notOnSale'>Bu ürün Satışta Değil</div>
                     :
                     <div className='modalContainer'>
-                      <CustomizedDialogs buttonName={"Satın Al"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Satın Al'}
+                      <CustomizedDialogs buttonName={"Satın Al"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Satın Al'}
                        pay={pay} prd={prd}
                       >
                         <div className='summitBuyText'>Satın almak istiyor musunuz?</div>
@@ -172,10 +172,11 @@ function DetailsPage() {
                       {
                         givenOffer || (myOffer && myOffer.length > 0) ? 
                         <CustomizedDialogs
-                          buttonName={"Teklifi geri çek"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Teklifi Geri Çek'}>
+                          buttonName={"Teklifi geri çek"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Teklifi Geri Çek'}>
+                            <div>Teklifi geri çekmek istiyor musunuz?</div>
                           </CustomizedDialogs> :
                           <CustomizedDialogs
-                            buttonName={"Teklif ver"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Teklif Ver'}
+                            buttonName={"Teklif ver"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Teklif Ver'}
                           >
                             <div className='sumInfoContainer'>
                               <div className='sumInfo'>
