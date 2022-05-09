@@ -8,6 +8,7 @@ import HomeImg from '../components/HomeImg';
 import Grid from '@mui/material/Grid';
 import ProductCard from '../components/ProductCard';
 import { useProduct } from '../contexts/ProductContext';
+import Spinner from '../components/spinner'
 
 function Home() {
   const { loginSuccess } = useUser();
@@ -44,21 +45,22 @@ function Home() {
   return (
     <Layout>
       <div className='container'>
+
         <Container maxWidth="lg" sx={{ marginTop: 2.5 }}>
           <Box sx={{ bgcolor: '#F2F2F2', height: '100vh' }} >
             <div className='imgContainer'>
               <HomeImg />
               <div className='categoryContainer'>
                 <div className={'category'} onClick={() => { getData() }}
-                  >
-                    Hepsi
-                  </div>
-                {
-                  categories && categories.map((item, index) =>
-                    <div className={'category' } key={index} onClick={() => { category(item.name)}} >{item.name}</div>
-                  )
+                >
+                  Hepsi
+                </div>
+                {!categories | categories?.length < 1 && <Spinner />}
+                {categories && categories.map((item, index) =>
+                  <div className={'category'} key={index} onClick={() => { category(item.name) }} >{item.name}</div>
+                )
                 }
-                <div className='category' onClick={() => { category('Diğer')}}  >Diğer</div>
+                <div className='category' onClick={() => { category('Diğer') }}  >Diğer</div>
               </div>
             </div>
 
@@ -80,7 +82,9 @@ function Home() {
 
 
         </Container>
+
       </div>
+
     </Layout>
   )
 }

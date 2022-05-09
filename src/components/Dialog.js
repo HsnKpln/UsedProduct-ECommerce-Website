@@ -46,7 +46,7 @@ const BootstrapDialogTitle = (props: DialogTitleProps) => {
 };
 // I customized the modal by sending Props as per page requirements.
 //I sent the methods as props and  I triggered the process from here.
-export default function CustomizedDialogs({ children, buttonName,buttonWidth,buttonPadding, buttonColor, buttonBg, title, pay, prd, submitOffer,offeredId }) {
+export default function CustomizedDialogs({ children, buttonName,buttonWidth,buttonPadding, buttonColor, buttonBg, title,withdrawOffer,myOffer, pay, prd, submitOffer,offeredId }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -101,7 +101,12 @@ export default function CustomizedDialogs({ children, buttonName,buttonWidth,but
                   Vazgeç
                 </Button>
                 <Button onClick={() =>{
-                 prd != null ? pay(prd) : offeredId && submitOffer(offeredId)
+                  if(prd)  pay(prd)
+                  if(offeredId) submitOffer(offeredId)
+                  if(myOffer) withdrawOffer(myOffer)
+
+                //  prd != null ? pay(prd) : offeredId && submitOffer(offeredId)
+                //  myOffer != null ? withdrawOffer(myOffer) : ""
                 setOpen(false)
               } }
                 sx={{

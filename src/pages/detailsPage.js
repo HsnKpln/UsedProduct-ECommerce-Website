@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
-import { Box} from '@mui/system'
-import React, { useEffect,  useState } from 'react'
+import { Box } from '@mui/system'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CustomizedDialogs from '../components/Dialog'
 import Layout from '../components/Layout'
@@ -9,6 +9,8 @@ import '../styles/detailPage.css'
 import { Formik } from 'formik'
 import { OfferModalSchema } from '../constants/yup/yupSchema'
 import axios, { URL } from '../constants/api/axios'
+import { useMemo } from 'react'
+import { useCallback } from 'react'
 
 function DetailsPage() {
   const { singleProduct, setSingleProduct, getProducts } = useProduct()
@@ -16,25 +18,49 @@ function DetailsPage() {
   const { id } = useParams()
 
   const [givenOffer, setGivenOffer] = useState()
-
+  const [userOffers, setUserOffer] = useState(null)
   // user information got from localstroge
   const user = JSON.parse(localStorage.getItem('userProfile'))
 
-  
+
+  const handleGetOffers = useCallback(async () => {
+    try {
+      const res = await axios.get(`https://bootcamp.akbolat.net/offers?users_permissions_user=${user.id}`)
+      if (res.statusText === 'OK') {
+        setUserOffer(res.data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [user.id]);
+
   const UrunID = id
   useEffect(() => {
-    getProducts(UrunID)
+    getProducts(UrunID);
+    handleGetOffers();
   }, [])
-  
-  // User's offers found
-  const myOffer = singleProduct[0].offers.filter(item => item.users_permissions_user == user.id)
 
 
- // Offer sent via axios put method when submitted offer by user
+  const myOffer = userOffers?.filter((item) => item?.product?.id === singleProduct?.[0]?.id)
+
+  // console.log('myOffer in detail',myOffer[0].id)
+  console.log('myOffer in detail2', user.id, singleProduct)
+
+  const withdrawOffer = async (myOfferId) => {
+    await axios.delete(URL.products + '/' + myOfferId)
+      .then((response) => {
+        console.log('teklif silme basarılı', response)
+        console.log('teklif silme gerçekleşti')
+      })
+      .catch((error) => {
+        console.log('An error occured', error.response)
+      });
+  }
+
+  // Offer sent via axios put method when submitted offer by user
   const offerSubmit = async (e) => {
     // Assigned to the variable so that the offer from the user can be more easily understood.
     const offer = e;
-    
     try {
       await axios
         .post(URL.offers, {
@@ -47,6 +73,7 @@ function DetailsPage() {
           updated_by: ""
 
         })
+
         .then((response) => {
           console.log('well done')
           console.log('User Profile', response)
@@ -54,15 +81,16 @@ function DetailsPage() {
 
         })
         .catch((error) => {
+          console.log('HERE THE ERROR', error)
           console.log('An error occured', error.response)
         });
     } catch (err) {
       console.log('An err', err.response)
     }
-    
+
   }
 
- // Purchase request sent via axios put method when submitted purchase by user
+  // Purchase request sent via axios put method when submitted purchase by user
   const pay = async (x) => {
     await axios.put(URL.products + '/' + x.id, {
       name: x.name,
@@ -154,14 +182,16 @@ function DetailsPage() {
                     :
                     <div className='modalContainer'>
                       <CustomizedDialogs buttonName={"Satın Al"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#fff'} buttonBg={'#4B9CE2'} title={'Satın Al'}
-                       pay={pay} prd={prd}
+                        pay={pay} prd={prd}
                       >
                         <div className='summitBuyText'>Satın almak istiyor musunuz?</div>
                       </CustomizedDialogs>
                       {
-                        givenOffer || (myOffer && myOffer.length > 0) ? 
-                        <CustomizedDialogs
-                          buttonName={"Teklifi geri çek"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Teklifi Geri Çek'}>
+                        givenOffer || (myOffer && myOffer.length > 0) ?
+                          <CustomizedDialogs
+                            buttonName={"Teklifi geri çek"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Teklifi Geri Çek'}
+                            withdrawOffer={withdrawOffer} myOffer={myOffer[0]?.id}
+                          >
                             <div>Teklifi geri çekmek istiyor musunuz?</div>
                           </CustomizedDialogs> :
                           <CustomizedDialogs
