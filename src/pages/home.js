@@ -55,7 +55,7 @@ function Home() {
                 >
                   Hepsi
                 </div>
-                {!categories | categories?.length < 1 && <Spinner />}
+                {!categories | categories?.length < 1 ? <Spinner /> : ""}
                 {categories && categories.map((item, index) =>
                   <div className={'category'} key={index} onClick={() => { category(item.name) }} >{item.name}</div>
                 )
@@ -63,7 +63,6 @@ function Home() {
                 <div className='category' onClick={() => { category('Diğer') }}  >Diğer</div>
               </div>
             </div>
-
             <Grid container spacing={2}
 
             >
