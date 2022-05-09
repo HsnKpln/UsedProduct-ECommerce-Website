@@ -86,3 +86,14 @@
 .registerContainer span{
     color: red;
 }
+@media only screen and (max-width:699px){
+    .registerContainer img{
+     display:none !important;
+    }
+    .registerForm{
+        padding: 20px 30px 20px 30px;
+    }
+    .registerFormContainer{
+        width: 100%;
+    }
+}

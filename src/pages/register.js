@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CommonImg from '../components/CommonImg'
 import '../styles/register.css'
 import { Link, Navigate } from 'react-router-dom'

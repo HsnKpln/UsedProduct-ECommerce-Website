@@ -70,8 +70,8 @@ function Login() {
         <div className='loginFormContainer'>
         {
             errorMessage ? <div>{errorMessage ==="Identifier or password invalid." ? 
-            <Stack sx={{ width: '18%', borderRadius: '8px', position:'absolute', top:'12vh', right: '10px' }} spacing={2}>
-                <Alert severity="error">Emailniz ya da şifreniz hatalı.</Alert>
+            <Stack columns={{ md: 12 }} sx={{ width: '18%', borderRadius: '8px', position:'absolute', top:'12vh', right: '10px' }} spacing={2}>
+                <Alert  severity="error">Emailniz ya da şifreniz hatalı.</Alert>
             </Stack> 
             : errorMessage}</div> : ""
             }
