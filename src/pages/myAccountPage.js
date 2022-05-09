@@ -28,7 +28,6 @@ function MyAccountPage() {
       const res = await axios.get(`https://bootcamp.akbolat.net/products?users_permissions_user=${user.id}`)
       if (res.statusText === 'OK') {
         const offeredProduct = res.data && res.data.filter(item => item.offers.length > 0)
-        console.log('bana aittt', res.data, user.id)
 
         setMyProducts(offeredProduct)
       }
@@ -71,7 +70,7 @@ function MyAccountPage() {
         isStatus: true
       })
       if (res.statusText === 'OK') {
-        console.log('güncelleme onaylandı kontrol', res.data)
+        console.log('update submit control', res.data)
       }
     } catch (error) {
       console.log(error)
@@ -86,13 +85,12 @@ function MyAccountPage() {
         isStatus: false
       })
       if (res.statusText === 'OK') {
-        console.log('güncelleme reddedildi kontrol', res.data)
+        console.log('update reject control', res.data)
       }
     } catch (error) {
       console.log(error)
     }
   }
-  console.log('myProducts istegi atıldı4', myProducts)
   return (
     <Layout>
       <Container >

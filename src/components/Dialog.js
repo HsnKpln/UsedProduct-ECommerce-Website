@@ -92,6 +92,7 @@ export default function CustomizedDialogs({ children, buttonName,buttonWidth,but
                  
                  sx={{
                   width: '150px',
+                  margin: '5px',
                   backgroundColor: '#F0F8FF',
                   borderRadius: '8px',
                   font: 'normal normal bold 18px/24px Nunito',
@@ -101,16 +102,15 @@ export default function CustomizedDialogs({ children, buttonName,buttonWidth,but
                   Vazgeç
                 </Button>
                 <Button onClick={() =>{
-                  if(prd)  pay(prd)
-                  if(offeredId) submitOffer(offeredId)
-                  if(myOffer) withdrawOffer(myOffer)
-
-                //  prd != null ? pay(prd) : offeredId && submitOffer(offeredId)
-                //  myOffer != null ? withdrawOffer(myOffer) : ""
+                  // if(prd)  pay(prd)
+                  // if(offeredId) submitOffer(offeredId)
+                  // if(myOffer) withdrawOffer(myOffer)
+                prd != null ? pay(prd) : offeredId && submitOffer(offeredId)
                 setOpen(false)
               } }
                 sx={{
                   width: '150px',
+                  margin: '5px',
                   backgroundColor: '#4B9CE2',
                   borderRadius: '8px',
                   font: 'normal normal bold 18px/24px Nunito',
@@ -121,6 +121,44 @@ export default function CustomizedDialogs({ children, buttonName,buttonWidth,but
                 }}
                 >
                   Satın Al
+                </Button>
+              </>
+              :
+              ""
+          }
+          {
+            title === 'Teklifi Geri Çek' ?
+              <>
+                <Button autoFocus onClick={handleClose}
+                 
+                 sx={{
+                  width: '150px',
+                  backgroundColor: '#F0F8FF',
+                  borderRadius: '8px',
+                  font: 'normal normal bold 18px/24px Nunito',
+                  color: '#4B9CE2',
+                  margin: '5px'
+                }}
+                >
+                  Vazgeç
+                </Button>
+                <Button onClick={() =>{
+                  if(myOffer) withdrawOffer(myOffer)
+                setOpen(false)
+              } }
+                sx={{
+                  width: '150px',
+                  margin: '5px',
+                  backgroundColor: '#4B9CE2',
+                  borderRadius: '8px',
+                  font: 'normal normal bold 18px/24px Nunito',
+                  color: '#fff',
+                  "&:hover": {
+                    backgroundColor: '#4B9CE2'
+                  }
+                }}
+                >
+                  Onayla
                 </Button>
               </>
               :

@@ -9,7 +9,6 @@ import '../styles/detailPage.css'
 import { Formik } from 'formik'
 import { OfferModalSchema } from '../constants/yup/yupSchema'
 import axios, { URL } from '../constants/api/axios'
-import { useMemo } from 'react'
 import { useCallback } from 'react'
 
 function DetailsPage() {
@@ -43,14 +42,15 @@ function DetailsPage() {
 
   const myOffer = userOffers?.filter((item) => item?.product?.id === singleProduct?.[0]?.id)
 
-  // console.log('myOffer in detail',myOffer[0].id)
-  console.log('myOffer in detail2', user.id, singleProduct)
+   //console.log('myOffer in detail',myOffer?.[0]?.id)
+   //console.log('myOffer in detail22',myOffer)
+  //console.log('myOffer in detail2', user.id, singleProduct)
 
   const withdrawOffer = async (myOfferId) => {
-    await axios.delete(URL.products + '/' + myOfferId)
+    await axios.delete(`https://bootcamp.akbolat.net/offers/${myOfferId}`)
       .then((response) => {
         console.log('teklif silme basarılı', response)
-        console.log('teklif silme gerçekleşti')
+        console.log('teklif silme gerçekleşti',response.data)
       })
       .catch((error) => {
         console.log('An error occured', error.response)
@@ -192,7 +192,7 @@ function DetailsPage() {
                             buttonName={"Teklifi geri çek"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Teklifi Geri Çek'}
                             withdrawOffer={withdrawOffer} myOffer={myOffer[0]?.id}
                           >
-                            <div>Teklifi geri çekmek istiyor musunuz?</div>
+                            <div className='withdrawText'>Teklifi geri çekmek istiyor musunuz?</div>
                           </CustomizedDialogs> :
                           <CustomizedDialogs
                             buttonName={"Teklif ver"} buttonWidth={'225px'} buttonPadding={'10px'} buttonColor={'#4B9CE2'} buttonBg={'#F0F8FF'} title={'Teklif Ver'}

@@ -67,7 +67,6 @@ const ProductProvider = ({ children }) => {
     
     try {
       const productDetail = JSON.parse(sessionStorage.getItem('allProducts'))
-      console.log(productDetail,",2PREODSUCT DETALK VAR")
       setSingleProduct(productDetail.filter(item => item.id == productId))
       
     } catch (error) {
